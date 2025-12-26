@@ -1,0 +1,27 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SGT Trade Execution API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/ai/validate": {
+      "post": {
+        "summary": "AI Proforma Validation",
+        "service": "ai-orchestrator"
+      }
+    },
+    "/api/finance/lock": {
+      "post": {
+        "summary": "Create Commission Lock",
+        "service": "financing-service"
+      }
+    },
+    "/api/shipment/release": {
+      "post": {
+        "summary": "QC Release to Logistics",
+        "service": "shipment-service"
+      }
+    }
+  }
+}
