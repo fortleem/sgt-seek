@@ -1,0 +1,17 @@
+version: 2025.12
+jurisdictions:
+  EG:
+    BANK_SPLIT:
+      max_amount: 1000000
+      financing_allowed: true
+      required_documents:
+        - INVOICE
+        - KYB
+  EU:
+    BANK_SPLIT:
+      max_amount: 500000
+      financing_allowed: true
+      required_documents:
+        - INVOICE
+        - KYB
+        - AML_REPORT

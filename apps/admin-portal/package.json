@@ -1,0 +1,23 @@
+{
+  "name": "sgt-admin-portal",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "lucide-react": "^0.320.0",
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8",
+    "autoprefixer": "^10"
+  }
+}

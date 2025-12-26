@@ -1,0 +1,11 @@
+overwrite: true
+schema: http://127.0.0.1:8080/graphql
+documents: "graphql/**/*.graphql"
+generates:
+  lib/graphql-types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true

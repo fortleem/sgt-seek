@@ -1,0 +1,25 @@
+'use client';
+import React from 'react';
+import * as Icons from 'lucide-react';
+import { gql } from '@apollo/client';
+import { useGetDashboardDataQuery, useMutation } from '../lib/graphql-types';
+
+export let COMMISSION_LOCK_MUTATION = gql`mutation {}`; // will be replaced
+
+export default function Dashboard() {
+  const { data, loading, error, refetch } = useGetDashboardDataQuery();
+  const [mutate] = useMutation(COMMISSION_LOCK_MUTATION);
+
+  const toggleLock = async () => {
+    alert("Mutation will be patched automatically on start");
+  };
+
+  if (loading) return <div className="p-10 font-mono">Syncing with Governor...</div>;
+  if (error) return <div className="p-10 text-red-500">API Error: {error.message}</div>;
+
+  return (
+    <div className="p-8 max-w-7xl mx-auto space-y-6">
+      <h1 className="text-2xl font-bold text-gray-800">SGT Phase 3 Dashboard</h1>
+    </div>
+  );
+}

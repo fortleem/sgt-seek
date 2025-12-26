@@ -1,0 +1,16 @@
+name: SGT Cloud Sentry
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Remote Execute
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SGT_HOST_IP }}
+          username: tonsy
+          key: ${{ secrets.SGT_SSH_KEY }}
+          script: /Users/tonsy/Documents/sgt-seek/scripts/sentry_maint.sh

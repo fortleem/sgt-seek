@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AuditEvent",
+  "type": "object",
+  "allOf": [{"$ref": "base_event.json"}],
+  "properties": {
+    "action": {"type": "string"},
+    "user_id": {"type": "string"}
+  },
+  "required": ["action", "user_id"]
+}

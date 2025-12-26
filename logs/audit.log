@@ -1,0 +1,6 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.35s
+     Running `target/debug/sgt-audit`
+📘 SGT Audit Service ONLINE at http://127.0.0.1:8081/graphql

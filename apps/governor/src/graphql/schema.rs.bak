@@ -1,0 +1,21 @@
+use async_graphql::{Schema, EmptySubscription};
+use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
+use axum::extract::State;
+use sqlx::PgPool;
+
+use crate::graphql::{queries::QueryRoot, mutations::MutationRoot};
+
+pub type SgtSchema = Schema<QueryRoot, MutationRoot, EmptySubscription>;
+
+pub fn create_schema(pool: PgPool) -> SgtSchema {
+    Schema::build(QueryRoot, MutationRoot, EmptySubscription)
+        .data(pool)
+        .finish()
+}
+
+pub async fn graphql_handler(
+    State(schema): State<SgtSchema>,
+    req: GraphQLRequest,
+) -> GraphQLResponse {
+    schema.execute(req.into_inner()).await.into()
+}

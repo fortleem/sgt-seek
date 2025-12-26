@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    <meta charset="UTF-8">
+    <title>SGT | Risk Dashboard</title>
+async function triggerEmergencyStop() { 
+    if(!confirm("WARNING: This will stop all Docker containers and close the SSH gateway. Proceed?")) return; 
+    document.getElementById("kill-status").innerText = "Sending Kill Signal..."; 
+    const res = await fetch("/api/emergency-stop?token=da9199f8dc2e26077e53f990f04dd29b", { method: "POST" }); 
+    const data = await res.json(); 
+    document.getElementById("kill-status").innerText = data.status; 
+    if(data.status === "SYSTEM_SHUTDOWN_INITIATED") { 
+        alert("System is shutting down. The dashboard will now disconnect."); 
+        window.location.reload(); 
+    } 
+}    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center border-b border-gray-700 pb-6 mb-8">
+            <h1 class="text-3xl font-bold text-blue-400">SGT SEEK <span class="text-xs text-gray-500">v1.0</span></h1>
+            <div class="text-right">
+                <p class="text-green-400 font-mono">● SYSTEM ONLINE</p>
+                <p class="text-gray-400 text-sm">Mode: Cloud-Hybrid</p>
+<div class="mt-8 border-t border-red-900 pt-6"> 
+    <button onclick="triggerEmergencyStop()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all transform active:scale-95"> 
+        🚨 INITIATE EMERGENCY SHUTDOWN 
+    </button> 
+    <p id="kill-status" class="mt-4 text-gray-500 font-mono text-sm"></p> 
+</div>            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                <p class="text-gray-400 text-sm">Total Scanned</p>
+                <p id="total-scanned" class="text-4xl font-bold">--</p>
+<div class="mt-8 border-t border-red-900 pt-6"> 
+    <button onclick="triggerEmergencyStop()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all transform active:scale-95"> 
+        🚨 INITIATE EMERGENCY SHUTDOWN 
+    </button> 
+    <p id="kill-status" class="mt-4 text-gray-500 font-mono text-sm"></p> 
+</div>            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+                <p class="text-gray-400 text-sm">Avg Risk Index</p>
+                <p id="avg-risk" class="text-4xl font-bold">--</p>
+<div class="mt-8 border-t border-red-900 pt-6"> 
+    <button onclick="triggerEmergencyStop()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all transform active:scale-95"> 
+        🚨 INITIATE EMERGENCY SHUTDOWN 
+    </button> 
+    <p id="kill-status" class="mt-4 text-gray-500 font-mono text-sm"></p> 
+</div>            </div>
+<div class="mt-8 border-t border-red-900 pt-6"> 
+    <button onclick="triggerEmergencyStop()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all transform active:scale-95"> 
+        🚨 INITIATE EMERGENCY SHUTDOWN 
+    </button> 
+    <p id="kill-status" class="mt-4 text-gray-500 font-mono text-sm"></p> 
+</div>        </div>
+
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-xl">
+            <table class="w-full text-left">
+                <thead class="bg-gray-700">
+                    <tr>
+                        <th class="p-4">ID</th>
+                        <th class="p-4 text-blue-300">Risk Score</th>
+                        <th class="p-4">Trade Context</th>
+                        <th class="p-4 text-right">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="trade-rows">
+                    </tbody>
+            </table>
+<div class="mt-8 border-t border-red-900 pt-6"> 
+    <button onclick="triggerEmergencyStop()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all transform active:scale-95"> 
+        🚨 INITIATE EMERGENCY SHUTDOWN 
+    </button> 
+    <p id="kill-status" class="mt-4 text-gray-500 font-mono text-sm"></p> 
+</div>        </div>
+<div class="mt-8 border-t border-red-900 pt-6"> 
+    <button onclick="triggerEmergencyStop()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all transform active:scale-95"> 
+        🚨 INITIATE EMERGENCY SHUTDOWN 
+    </button> 
+    <p id="kill-status" class="mt-4 text-gray-500 font-mono text-sm"></p> 
+</div>    </div>
+
+    <script>
+let riskChart; 
+function updateChart(data) { 
+    const ctx = document.getElementById("riskChart").getContext("2d"); 
+    const labels = data.map(t => t.time.split(" ")[1]).reverse(); 
+    const scores = data.map(t => t.score).reverse(); 
+    if (riskChart) { riskChart.destroy(); } 
+    riskChart = new Chart(ctx, { 
+        type: "line", 
+        data: { 
+            labels: labels, 
+            datasets: [{ 
+                label: "Risk Score", 
+                data: scores, 
+                borderColor: "#60A5FA", 
+                backgroundColor: "rgba(96, 165, 250, 0.1)", 
+                fill: true, 
+                tension: 0.4 
+            }] 
+        }, 
+        options: { 
+            responsive: true, 
+            scales: { y: { beginAtZero: true, max: 1, grid: { color: "#374151" } }, x: { grid: { display: false } } }, 
+            plugins: { legend: { display: false } } 
+        } 
+    }); 
+}        async function updateDashboard() {
+            const res = await fetch("/api/trades"); const data = await res.json(); let rows = ""; data.forEach(t => { rows += `<tr><td class="p-4">${t.id}</td><td class="p-4 text-yellow-400 font-mono">${t.score}</td><td class="p-4">${t.text}</td><td class="p-4 text-right text-gray-500">${t.time.split(".")[0]}</td></tr>`; }); document.getElementById("trade-rows").innerHTML = rows; document.getElementById("total-scanned").innerText = data.length;
+    updateChart(data);            console.log("Polling for new trade data...");
+        }
+        setInterval(updateDashboard, 5000);
+async function triggerEmergencyStop() { 
+    if(!confirm("WARNING: This will stop all Docker containers and close the SSH gateway. Proceed?")) return; 
+    document.getElementById("kill-status").innerText = "Sending Kill Signal..."; 
+    const res = await fetch("/api/emergency-stop?token=da9199f8dc2e26077e53f990f04dd29b", { method: "POST" }); 
+    const data = await res.json(); 
+    document.getElementById("kill-status").innerText = data.status; 
+    if(data.status === "SYSTEM_SHUTDOWN_INITIATED") { 
+        alert("System is shutting down. The dashboard will now disconnect."); 
+        window.location.reload(); 
+    } 
+}    </script>
+</body>
+</html>

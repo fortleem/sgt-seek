@@ -1,0 +1,19 @@
+[package]
+name = "sgt-shipment"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "=0.7.5"
+tokio = { version = "1.38", features = ["full"] }
+tower-http = { version = "=0.5.2", features = ["cors"] }
+serde = { version = "1.0", features = ["derive"] }
+chrono = "0.4"
+uuid = { version = "1.19.0", features = ["v4"] }
+sqlx = { version = "0.7.4", features = ["runtime-tokio-rustls", "sqlite"] }
+
+async-graphql = { version = "=7.0.6", default-features = false, features = ["chrono"] }
+async-graphql-axum = "=7.0.6"
+async-graphql-derive = "=7.0.6"
+async-graphql-parser = "=7.0.6"
+async-graphql-value = "=7.0.6"

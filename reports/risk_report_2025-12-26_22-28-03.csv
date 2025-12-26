@@ -1,0 +1,11 @@
+id,risk_score,trade_text,analyzed_at
+1,0.5,Buy 10 shares of AAPL at market price,2025-12-26 20:24:07.324208
+2,0.5,"Transfer $1,000,000 to new account in Seychelles",2025-12-26 20:24:07.591799
+3,0.5,Close all positions and withdraw total balance immediately,2025-12-26 20:24:08.094372
+4,0.5,Buy 500 units of BTC/USD at market,2025-12-26 20:27:25.753929
+5,0.5,Sell 200 shares of TSLA - stop loss triggered,2025-12-26 20:27:27.047763
+6,0.5,"Withdrawal request: 15,000 USD to external wallet 0xabc123",2025-12-26 20:27:28.313241
+7,0.5,Limit Order: Buy 50 ETH at 2200.00,2025-12-26 20:27:29.592518
+8,0.5,Suspicious Activity: Multiple failed login attempts before trade,2025-12-26 20:27:30.856202
+9,0.5,"Transfer 5,000 GBP to joint account",2025-12-26 20:27:32.171718
+10,0.5,"High Volume Trade: 1,000,000 DOGE swap to USDT",2025-12-26 20:27:33.478789

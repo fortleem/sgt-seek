@@ -1,0 +1,31 @@
+-- Identity Schema (Blueprint v2.0)
+CREATE TABLE IF NOT EXISTS users (
+    id UUID PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS organizations (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+    id UUID PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS jurisdictions (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS credentials (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    credential_type VARCHAR(50) NOT NULL,
+    issued_at TIMESTAMP NOT NULL DEFAULT NOW()
+);

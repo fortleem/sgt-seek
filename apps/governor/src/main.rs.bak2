@@ -1,0 +1,39 @@
+use axum::{
+    routing::get,
+    Router,
+    extract::State,
+};
+use std::net::SocketAddr;
+use sqlx::PgPool;
+use async_graphql_axum::{GraphQLRouter, GraphQLSubscription};
+use sgt_governor::graphql::{create_schema, SgtSchema};
+use dotenvy::dotenv;
+use tokio;
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    dotenv().ok();
+    let database_url = std::env::var("DATABASE_URL")
+        .expect("DATABASE_URL must be set in .env");
+
+    let pool = PgPool::connect(&database_url).await?;
+    let schema: SgtSchema = create_schema(pool.clone());
+
+    let app = Router::new()
+        .route("/", get(root_handler))
+        .merge(GraphQLRouter::new(schema.clone()).with_subscription(GraphQLSubscription::new(schema)))
+        .with_state(pool);
+
+    let addr = SocketAddr::from(([127, 0, 0, 1], 4000));
+    println!("🚀 SGT Governor running at http://{}", addr);
+
+    axum::Server::bind(&addr)
+        .serve(app.into_make_service())
+        .await?;
+
+    Ok(())
+}
+
+async fn root_handler() -> &'static str {
+    "SGT Governor Service — Healthy"
+}

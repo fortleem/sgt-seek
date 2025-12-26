@@ -1,0 +1,32 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  // swcMinify is now default in Next.js 15+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8080/:path*',
+      },
+      {
+        source: '/graphql',
+        destination: 'http://localhost:8080/graphql',
+      },
+    ];
+  },
+  // Fix the workspace root warning
+    root: '/Users/tonsy/Documents/sgt-seek/apps/frontend'
+  }
+};
+
+export default nextConfig;

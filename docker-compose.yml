@@ -1,0 +1,190 @@
+version: '3.8'
+
+services:
+  # Database Layer
+  postgres:
+    image: postgres:16-alpine
+    container_name: sgt-postgres
+    environment:
+      POSTGRES_DB: sgt_core
+      POSTGRES_USER: tonsy
+      POSTGRES_PASSWORD: Mk98iuiu
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/setup/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - sgt-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tonsy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching and Celery
+  redis:
+    image: redis:7-alpine
+    container_name: sgt-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${REDIS_PASSWORD:-redis_password_here}
+    volumes:
+      - redis_data:/data
+    networks:
+      - sgt-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO for object storage
+  minio:
+    image: minio/minio:latest
+    container_name: sgt-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - sgt-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Message Broker - Apache Pulsar
+  pulsar:
+    image: apachepulsar/pulsar:3.0.0
+    container_name: sgt-pulsar
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    environment:
+      PULSAR_PREFIX_advertisedAddress: pulsar
+      PULSAR_PREFIX_brokerServicePort: 6650
+      PULSAR_PREFIX_webServicePort: 8080
+    volumes:
+      - pulsar_data:/pulsar/data
+    command: >
+      bin/pulsar standalone
+    networks:
+      - sgt-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/admin/v2/brokers/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Backend API
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: sgt-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://tonsy:Mk98iuiu@postgres:5432/sgt_core
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password_here}@redis:6379/0
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD:-minioadmin}
+      - PULSAR_URL=pulsar://pulsar:6650
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ALGORITHM=${JWT_ALGORITHM}
+    volumes:
+      - ./apps/backend:/app
+      - ./libs:/libs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      pulsar:
+        condition: service_started
+    networks:
+      - sgt-network
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Celery Worker
+  celery-worker:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: sgt-celery-worker
+    environment:
+      - DATABASE_URL=postgresql://tonsy:Mk98iuiu@postgres:5432/sgt_core
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password_here}@redis:6379/0
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-redis_password_here}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-redis_password_here}@redis:6379/0
+    volumes:
+      - ./apps/backend:/app
+      - ./libs:/libs
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - sgt-network
+    command: celery -A src.worker.celery_app worker --loglevel=info
+
+  # Frontend
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+    container_name: sgt-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/frontend:/app
+      - ./libs:/libs
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+    depends_on:
+      - backend
+    networks:
+      - sgt-network
+    command: npm run dev
+
+  # Admin Portal
+  admin-portal:
+    build:
+      context: ./apps/admin-portal
+      dockerfile: Dockerfile
+    container_name: sgt-admin-portal
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./apps/admin-portal:/app
+      - ./libs:/libs
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+    depends_on:
+      - backend
+    networks:
+      - sgt-network
+    command: npm run dev
+
+networks:
+  sgt-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  pulsar_data:

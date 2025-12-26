@@ -1,0 +1,12 @@
+[database]
+host = "localhost"
+port = 5432
+username = "tonsy"
+password = "Mk98iuiu."
+database = "sgt_platform"
+max_connections = 10
+
+# Blueprint: Multi-zone support (Page 4)
+[zones]
+primary = "us-east-1"
+replicas = ["eu-west-1", "ap-southeast-1"]

@@ -1,0 +1,6 @@
+node_modules/
+.env
+infra/model_cache/
+target/
+dist/
+.env

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SGTErrorTaxonomy",
+  "type": "object",
+  "properties": {
+    "GOVERNANCE_VIOLATION": {"type": "string", "const": "Governance violation detected"},
+    "POLICY_DENIED": {"type": "string", "const": "Policy denied the action"},
+    "CONTRACT_INVALID": {"type": "string", "const": "Invalid contract state"},
+    "JURISDICTION_MISMATCH": {"type": "string", "const": "Jurisdiction mismatch"},
+    "AUDIT_FAILURE": {"type": "string", "const": "Audit logging failed"},
+    "SYSTEM_INTEGRITY_BREACH": {"type": "string", "const": "System integrity breach"}
+  },
+  "required": [
+    "GOVERNANCE_VIOLATION",
+    "POLICY_DENIED",
+    "CONTRACT_INVALID",
+    "JURISDICTION_MISMATCH",
+    "AUDIT_FAILURE",
+    "SYSTEM_INTEGRITY_BREACH"
+  ]
+}

@@ -1,0 +1,20 @@
+name: SGT AI Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build AI Orchestrator
+        run: |
+          docker build -t sgt-ai-orchestrator ./apps/ai-orchestrator
+          # Note: In a real scenario, we would 'docker login' and 'docker push' here

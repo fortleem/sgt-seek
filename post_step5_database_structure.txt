@@ -1,0 +1,197 @@
+.
+├── .DS_Store
+├── .env
+├── .env.example
+├── .git
+│   ├── config
+│   ├── description
+│   ├── HEAD
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── push-to-checkout.sample
+│   │   ├── sendemail-validate.sample
+│   │   └── update.sample
+│   ├── info
+│   │   └── exclude
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   └── refs
+│       ├── heads
+│       └── tags
+├── .gitignore
+├── .vscode
+│   └── settings.json
+├── apps
+│   ├── .DS_Store
+│   ├── admin-portal
+│   ├── ai-orchestrator
+│   ├── backend
+│   │   ├── .DS_Store
+│   │   ├── .env
+│   │   ├── alembic
+│   │   ├── alembic.ini
+│   │   ├── alembic.ini.backup
+│   │   ├── apply_migration_directly.py
+│   │   ├── backups
+│   │   ├── check_user_schemas.py
+│   │   ├── comprehensive_test.py
+│   │   ├── Dockerfile
+│   │   ├── final_test.py
+│   │   ├── fix_full_version.py
+│   │   ├── full_setup.sh
+│   │   ├── launch_sgt.sh
+│   │   ├── migrations
+│   │   ├── models
+│   │   ├── post_phase1_structure.txt
+│   │   ├── quick_test.py
+│   │   ├── requirements_fixed.txt
+│   │   ├── requirements.txt
+│   │   ├── run.py
+│   │   ├── scripts
+│   │   ├── setup_and_run.sh
+│   │   ├── sgt_seek.db
+│   │   ├── simple_test.py
+│   │   ├── src
+│   │   ├── start_api.sh
+│   │   ├── start_final.sh
+│   │   ├── start_server.py
+│   │   ├── start_sgt_api.sh
+│   │   ├── start_simple.sh
+│   │   ├── start_working.sh
+│   │   ├── start.sh
+│   │   ├── test_all_imports.py
+│   │   ├── test_all_models_fixed.py
+│   │   ├── test_all_modules.py
+│   │   ├── test_api_endpoints.py
+│   │   ├── test_auth_imports.py
+│   │   ├── test_clean_migration.py
+│   │   ├── test_config_fix.py
+│   │   ├── test_database.py
+│   │   ├── test_direct.py
+│   │   ├── test_extend_fix.py
+│   │   ├── test_final.py
+│   │   ├── test_fix.py
+│   │   ├── test_foreign_key_fix.py
+│   │   ├── test_migration_001.py
+│   │   ├── test_migration.py
+│   │   ├── test_minimal.py
+│   │   ├── test_model_detection.py
+│   │   ├── test_python_command.py
+│   │   ├── test_running_api.py
+│   │   ├── test_startup.py
+│   │   ├── test_tokendata.py
+│   │   ├── test_user_response.py
+│   │   ├── tests
+│   │   ├── update_auth_imports.py
+│   │   ├── venv
+│   │   ├── venv_3.9_backup
+│   │   ├── verify_installation.sh
+│   │   ├── verify_setup.sh
+│   │   └── verify_venv.py
+│   ├── frontend
+│   └── services
+│       ├── identity-service
+│       ├── logistics-service
+│       ├── settlement-service
+│       └── trade-service
+├── backups
+│   ├── pre_postgres_migration_20251222_180551
+│   ├── pre_postgres_migration_20251222_180553
+│   │   ├── ai.py
+│   │   ├── ai.py.backup.20251222_151654
+│   │   ├── commission.py
+│   │   ├── contract.py
+│   │   ├── document.py
+│   │   ├── document.py.backup.20251222_151654
+│   │   ├── financing.py
+│   │   ├── quote.py
+│   │   ├── sgt_seek.db
+│   │   ├── shipment.py
+│   │   ├── shipment.py.backup.20251222_151654
+│   │   ├── trade.py
+│   │   ├── trade.py.backup.20251222_152058
+│   │   ├── user.py
+│   │   ├── user.py.backup
+│   │   └── user.py.before_extend_fix.20251222_151526
+│   └── pre_postgres_migration_20251222_194542
+│       ├── entity
+│       └── sgt_seek.db
+├── data
+│   ├── backups
+│   ├── exports
+│   ├── migrations
+│   └── seeds
+├── DEPLOYMENT.md
+├── docker-compose.override.yml
+├── docker-compose.yml
+├── docs
+│   ├── api
+│   ├── architecture
+│   ├── compliance
+│   └── deployment
+├── DOCUMENTATION.md
+├── infrastructure
+│   ├── ci-cd
+│   ├── docker
+│   │   ├── api-gateway
+│   │   ├── grafana
+│   │   ├── kafka
+│   │   ├── loki
+│   │   └── postgres
+│   ├── kubernetes
+│   │   ├── base
+│   │   └── overlays
+│   ├── monitoring
+│   └── terraform
+├── libs
+│   ├── config
+│   ├── core
+│   ├── shared
+│   │   ├── events
+│   │   ├── models
+│   │   └── utils
+│   ├── types
+│   └── utils
+├── Makefile
+├── package.json
+├── platform_report_20251223_043620.txt
+├── post_phase5_database_structure_complete.txt
+├── post_phase5_database_structure.txt
+├── post_step5_database_structure.txt
+├── README.md
+├── requirements.txt
+├── scripts
+│   ├── backup
+│   ├── deployment
+│   ├── maintenance
+│   └── setup
+│       └── init-db.sql
+├── services
+│   ├── commission
+│   ├── contract
+│   ├── financing
+│   ├── governor
+│   │   └── sgt-governor
+│   ├── quote
+│   ├── settlement
+│   ├── shipment
+│   ├── trade
+│   └── user
+└── tests
+    ├── e2e
+    ├── integration
+    ├── performance
+    └── unit
+
+88 directories, 107 files

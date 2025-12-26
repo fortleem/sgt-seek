@@ -1,0 +1,6 @@
+version: 2025.12
+gates:
+  CUSTOMS_CLEARED:
+    requires:
+      - COMMISSION_LOCK
+      - AI_RISK_BELOW: 0.3

@@ -1,0 +1,30 @@
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    createdAt: String!
+}
+
+type Organization {
+    id: ID!
+    name: String!
+    createdAt: String!
+}
+
+type Role {
+    id: ID!
+    name: String!
+    createdAt: String!
+}
+
+type Jurisdiction {
+    id: ID!
+    name: String!
+}
+
+type Credential {
+    id: ID!
+    userId: ID!
+    credentialType: String!
+    issuedAt: String!
+}

@@ -1,0 +1,16 @@
+query GetDashboardData {
+  tradeRequests {
+    id
+    productCategory
+    amount
+    status
+    negotiationStep
+    createdAt
+  }
+  commissionLocks {
+    id
+    commissionType
+    amount
+    lockStatus
+  }
+}
