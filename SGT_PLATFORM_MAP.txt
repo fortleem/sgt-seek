@@ -1,0 +1,18 @@
+SGT SEEK - PLATFORM STRUCTURE (Phase 50 - COMPLETE CORE)
+================================================
+/apps
+  /frontend
+    - admin_dashboard.html   (Live Metrics)
+    - exporter_portal.html  (Signature Desk)
+  /ai-orchestrator           (Matching/QC Audit)
+  /financing-service         (Risk/Multi-sig)
+/docs
+  - SPA_T_DEC_2025_001.txt   (Signed Contract)
+  - QC_REPORT_T_DEC_2025_001.txt (Validated)
+/logs
+  - orchestrator.log         (Background Loop)
+  - notifications.log        (Public Milestones)
+/scripts
+  - trade_orchestrator.py    (Master Loop)
+  - health_watcher.sh        (Self-Healing)
+================================================

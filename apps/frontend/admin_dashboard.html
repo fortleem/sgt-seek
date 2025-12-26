@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SGT Admin Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-10">
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="text-3xl font-bold text-blue-400">SGT Global Control Center</h1>
+        <span class="bg-green-600 px-4 py-1 rounded-full text-sm animate-pulse">AUTO-PILOT ACTIVE</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div class="p-6 bg-gray-800 rounded-lg border border-blue-500">
+            <h2 class="text-xl font-semibold">Active Trades</h2>
+            <p class="text-4xl mt-2">10</p>
+        </div>
+        <div class="p-6 bg-gray-800 rounded-lg border border-yellow-500">
+            <h2 class="text-xl font-semibold">Pending Signatures</h2>
+            <p class="text-4xl mt-2 text-yellow-400">1</p>
+        </div>
+        <div class="p-6 bg-gray-800 rounded-lg border border-purple-500">
+            <h2 class="text-xl font-semibold">Storage Health</h2>
+            <p class="text-xl mt-2 text-green-400">98% FREE</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Platform Milestone Log</h2>
+            <pre class="text-sm text-green-500 overflow-x-auto h-64">
+[2025-12-26 23:20:13] TRADE T-DEC-2025-001 | TO: ['IMPORTER', 'EXPORTER', 'FINANCIER'] | MSG: Legal SPA Generated and ready for digital signature. View in /docs.
+[2025-12-26 23:24:08] TRADE T-DEC-2025-001 | TO: ['IMPORTER', 'EXPORTER', 'FINANCIER'] | MSG: Legal SPA Generated and ready for digital signature. View in /docs.
+            </pre>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-2xl mb-4 border-b border-gray-700 pb-2">Quick Actions</h2>
+            <div class="space-y-4">
+                <a href="exporter_portal.html" class="block w-full bg-blue-600 text-center py-2 rounded font-bold hover:bg-blue-500">VIEW EXPORTER DESK</a>
+                <button class="w-full bg-red-600 py-2 rounded font-bold hover:bg-red-500" onclick="alert('Emergency Stop Sent')">EMERGENCY KILL SWITCH</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

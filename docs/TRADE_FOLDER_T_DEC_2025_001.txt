@@ -1,0 +1,49 @@
+===============================================================
+SGT SEEK - MASTER TRADE FOLDER
+REF: T-DEC-2025-001
+Generated: Fri Dec 26 23:27:22 EET 2025
+===============================================================
+
+PART 1: LEGAL EXECUTED SPA
+---------------------------------------------------------------
+
+    =========================================
+    SALE AND PURCHASE AGREEMENT (SPA)
+    =========================================
+    Date: 2025-12-26
+    Ref: T-DEC-2025-001
+    
+    1. THE PARTIES
+       BUYER: Importer_Main
+       SELLER: Exporter_Alpha
+    
+    2. PRODUCT SPECIFICATIONS
+       COMMODITY: Yellow Corn Grade 2
+       QUANTITY: 5000 Metric Tons
+       UNIT PRICE: $245.0
+    
+    3. TOTAL CONTRACT VALUE
+       TOTAL: $1,225,000.00
+       COMMISSION LOCK (7%): $85,750.00
+    
+    4. TERMS
+       Subject to QC Inspection and AI Document Validation.
+    =========================================
+    
+
+PART 2: AI QC VALIDATION REPORT
+---------------------------------------------------------------
+INSPECTION REPORT: SGT-QC-99
+COMMODITY: Yellow Corn
+GRADE: 2 (Export Quality)
+MOISTURE: 14% (PASS)
+AFLATOXIN: <20ppb (PASS)
+FINAL VERDICT: APPROVED FOR RELEASE
+
+PART 3: LOGISTICS RELEASE STATUS
+---------------------------------------------------------------
+STATUS: RELEASED TO FREIGHT FORWARDER
+MILESTONE HASH: 05558df3322f4e282f558c456fc517a714357274cfc3483adfc7dfb566cd8504
+
+===============================================================
+END OF DOCUMENT
